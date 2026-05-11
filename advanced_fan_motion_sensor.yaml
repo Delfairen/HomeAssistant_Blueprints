@@ -159,6 +159,7 @@ variables:
   elevation: !input elevation
   elevation_adjustment: !input elevation_adjustment
   luminance_sensor: !input luminance_sensor
+  luminance_required: !input luminance_required
 
 trigger:
   - platform: state
@@ -227,21 +228,16 @@ action:
             after: !input time_default_start
             before: !input time_default_end
 
-          - choose:
-              - conditions:
-                  - condition: template
-                    value_template: "{{ luminance_sensor == none }}"
-                sequence:
-                  - service: fan.turn_on
-                    target: !input fan_target
+          - condition: template
+            value_template: >
+              {% if luminance_sensor == none or luminance_sensor == '' %}
+                true
+              {% else %}
+                {{ states(luminance_sensor) | float(999999) < luminance_required }}
+              {% endif %}
 
-              - conditions:
-                  - condition: numeric_state
-                    entity_id: !input luminance_sensor
-                    below: !input luminance_required
-                sequence:
-                  - service: fan.turn_on
-                    target: !input fan_target
+          - service: fan.turn_on
+            target: !input fan_target
 
           - choose:
               - conditions:
