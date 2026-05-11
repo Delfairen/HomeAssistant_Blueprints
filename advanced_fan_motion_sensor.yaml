@@ -23,7 +23,7 @@ blueprint:
       selector:
         entity:
           multiple: false
-    fan_target:_
+    fan_target:
       name: Fan
       selector:
         target:
