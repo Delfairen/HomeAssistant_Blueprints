@@ -1,10 +1,10 @@
 blueprint:
-  name: Advanced Custom Motion Sensor
+  name: Advanced Fan Motion Sensor
   description:
     "This motion sensor is based on several ideas from other blueprints, and adding my own customizations.\n\n
     \n\n
     Inputs and actions are:\n
-    - Turn on lights or scenes when motion is detected. The trigger can be a motion detector or anything that switches between ON and OFF. You can use several motion detectors.\n
+    - Turn on Fans/Air purifier when motion is no longer detected. The trigger can be a motion detector or anything that switches between ON and OFF. You can use several motion detectors.\n
     - The activation can be triggered between a certain time slot (so the bathroom light does not turn on in the middle of the night)\n
     - You can specify a luminance value: only run when it is darker than indicated\n
     - Sun horizon setting: you can run the action always, or only when the sun is above or below the horizon.\n
@@ -15,7 +15,7 @@ blueprint:
     - Only run the motion off action if an optional entity is in desired state\n"
 
   domain: automation
-  source_url: https://github.com/brigger/HomeAssistant_Blueprints/blob/main/advanced_custom_motion_sensor.yaml
+  source_url: https://github.com/Delfairen/HomeAssistant_Blueprints/edit/main/advanced_custom_motion_sensor.yaml
   input:
     motion_entity:
       name: Motion Sensor
@@ -23,12 +23,12 @@ blueprint:
       selector:
         entity:
           multiple: false
-    light_target:
-      name: Light
+    fan_target:
+      name: Fan
       selector:
         target:
           entity:
-            domain: light
+            domain: fan
     luminance_sensor:
       name: Illuminance sensor
       description: This sensor will be used to determine the illumination.
