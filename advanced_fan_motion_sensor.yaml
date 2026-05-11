@@ -162,7 +162,7 @@ trigger:
     entity_id: !input motion_entity
     from: "on"
     to: "off"
-      seconds: !input no_motion_wait
+    seconds: !input no_motion_wait
 condition:
   - condition: or
     conditions:
