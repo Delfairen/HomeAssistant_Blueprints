@@ -122,7 +122,7 @@ blueprint:
     scene_ambient:
       name: Ambient Scene (Optional)
       description: Scene for ambient state. Will be activated when no motion is detected.
-      default: scene.none
+      default: ""
       selector:
         entity:
           domain:
@@ -216,12 +216,14 @@ action:
         sequence:
           - choose:
               - conditions:
-                  - "{{ scene_ambient != 'scene.none' }}"
+                  - "{{ scene_ambient != '' }}"
                   - condition: time
                     after: !input time_scene_ambient_start
                     before: !input time_scene_ambient_end
                 sequence:
-                  - scene: !input scene_ambient
+                  - service: scene.turn_on
+                    target:
+                      entity_id: !input scene_ambient
             default:
               - service: fan.turn_off
                 target: !input fan_target
